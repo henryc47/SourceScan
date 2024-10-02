@@ -3,4 +3,4 @@
 
 # Get commit details (for pre-commit hook)
 DIFF=$(git diff --cached)
-echo "$DIFF" | test_script.py
+echo "$DIFF" | python3 test_script.py
