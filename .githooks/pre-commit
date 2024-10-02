@@ -1,0 +1,6 @@
+#!/bin/bash
+# Hook script to intercept commit and send output to a Python script
+
+# Get commit details (for pre-commit hook)
+DIFF=$(git diff --cached)
+echo "$DIFF" | test_script.py
