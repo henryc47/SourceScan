@@ -1,13 +1,17 @@
 import sys
 
+#process a caught diff
 def process_diff(diff):
-#spacetesting
-    # Process the diff lines
-    print("num lines =",len(diff),"lines")
-    for line in diff:
-        print(line)
+    added_lines = extract_added_lines(diff)
+    print("num lines =",len(added_lines),"lines")
+    for line in added_lines:
+        print(added_lines)
 
+#TODO
+def extract_added_lines(diff):
+    return diff
 
+#process diff data intercepted by a git hook
 if __name__ == "__main__":
     # Read diff data from stdin
     diff_data = sys.stdin.readlines()
