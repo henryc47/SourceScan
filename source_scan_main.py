@@ -2,9 +2,7 @@ import sys
 
 #process a caught diff
 def process_diff(diff):
-    diff_lines = extract_added_lines(diff)
-    print("num lines =",len(diff_lines),"lines")
-    new_lines_in_diff = extract_new_lines_in_diff(diff_lines)
+    new_lines_in_diff = extract_new_lines_in_diff(diff)
     for line in new_lines_in_diff:
         print(line,end="")
 
