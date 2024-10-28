@@ -5,7 +5,7 @@ def process_diff(diff):
     added_lines = extract_added_lines(diff)
     print("num lines =",len(added_lines),"lines")
     for line in added_lines:
-        print(added_lines)
+        print(line)
 
 #TODO
 def extract_added_lines(diff):
