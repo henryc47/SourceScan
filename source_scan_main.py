@@ -1,9 +1,12 @@
 import sys
 
 #process a caught diff
-def process_diff(diff):
-    new_lines_in_diff = extract_new_lines_in_diff(diff)
-    for line in new_lines_in_diff:
+def process_data(data,is_diff):
+    if is_diff:
+        lines = extract_new_lines_in_diff(data)
+    else: #default just read a whole file
+        lines = data
+    for line in lines:
         print(line,end="")
 
 #There are probably ways of having a line falsely register as a new line from this function, hopefully that will be pretty rare. 
@@ -19,7 +22,6 @@ def extract_new_lines_in_diff(diff_lines):
                 #add the new line
                 new_lines.append(line[1:])
     return new_lines
-    
 
 #TODO
 def extract_added_lines(diff):
@@ -28,5 +30,10 @@ def extract_added_lines(diff):
 #process diff data intercepted by a git hook
 if __name__ == "__main__":
     # Read diff data from stdin
-    diff_data = sys.stdin.readlines()
-    process_diff(diff_data)
+    data = sys.stdin.readlines()
+    is_diff=False
+    if len(sys.argv)>1:#there are additional arguments
+        if sys.argv[1]=="diff":
+            is_diff = True
+    
+    process_data(data,is_diff)
