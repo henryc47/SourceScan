@@ -6,7 +6,7 @@ def process_diff(diff):
     print("num lines =",len(diff_lines),"lines")
     new_lines_in_diff = extract_new_lines_in_diff(diff_lines)
     for line in new_lines_in_diff:
-        print(line)
+        print(line,end="")
 
 #There are probably ways of having a line falsely register as a new line from this function, hopefully that will be pretty rare. 
 def extract_new_lines_in_diff(diff_lines):
