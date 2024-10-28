@@ -13,6 +13,7 @@ def extract_new_lines_in_diff(diff_lines):
     for line in diff_lines:
         #if len(line)>
         #hoohar
+        #hoorar
         pass
 
 #TODO
