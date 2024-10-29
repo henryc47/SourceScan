@@ -4,3 +4,7 @@
 # Get commit details (for pre-commit hook)
 DIFF=$(git diff --cached)
 echo "$DIFF" | python3 source_scan_main.py diff
+#if [ $? -ne 0 ]; then
+#  echo "Commit blocked due to pre-commit check failure."
+#  exit 1
+#fi
