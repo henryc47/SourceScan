@@ -1,4 +1,5 @@
 import sys
+from random_string_detector import detect_random
 
 #process a caught diff
 def process_data(data,is_diff):
@@ -9,8 +10,8 @@ def process_data(data,is_diff):
     for line in lines:
         print(line,end="")
     
-    passed = perform_checks(lines)
-    if passed:
+    failed = perform_checks(lines)
+    if not failed:
         #TODO - add success message here
         sys.exit(0)
     else:
@@ -32,7 +33,8 @@ def extract_new_lines_in_diff(diff_lines):
     return new_lines
 
 def perform_checks(lines):
-    return True
+    random_detected = detect_random(lines)
+    return random_detected
 
 #process diff data intercepted by a git hook
 if __name__ == "__main__":
