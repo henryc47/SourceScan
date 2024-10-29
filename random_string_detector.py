@@ -14,7 +14,16 @@ def detect_random_in_line(line):
     for word in words:
         possible_random_words = []
         if is_word_random(word):
-            possible_random_words = []
+            possible_random_words.append(word)
+    if len(possible_random_words)>0:
+        #handle possible security vulnerability
+        print("Possible security vulnerability in line = ",line)
+        print("match words are ",possible_random_words)
+        override_key = input("type 'y' to confirm safe")
+        if override_key=="y":
+            return False
+        else:
+            return True
     return False
 
 #test, just sees if first three letters of word are "foo"
