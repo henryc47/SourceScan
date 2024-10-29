@@ -12,8 +12,9 @@ def detect_random(lines):
 def detect_random_in_line(line):
     words = line.split() #break each up line into words (parts of the line separated by whitespace)
     for word in words:
-        if is_word_random():
-            return True
+        possible_random_words = []
+        if is_word_random(word):
+            possible_random_words = []
     return False
 
 #test, just sees if first three letters of word are "foo"

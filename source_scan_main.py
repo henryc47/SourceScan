@@ -7,9 +7,6 @@ def process_data(data,is_diff):
         lines = extract_new_lines_in_diff(data)
     else: #default just read a whole file
         lines = data
-    for line in lines:
-        print(line,end="")
-    
     failed = perform_checks(lines)
     if not failed:
         #TODO - add success message here
