@@ -8,11 +8,14 @@ def process_data(data,is_diff):
         lines = data
     for line in lines:
         print(line,end="")
-    if len(lines)>1:
-        print("Commit blocked : Only allowed to commit line file at time",file=sys.stderr)
-        sys.exit(1)
-    else:
+    
+    passed = perform_checks(lines)
+    if passed:
+        #TODO - add success message here
         sys.exit(0)
+    else:
+        #TODO - add failure message here
+        sys.exit(1)
 
 #There are probably ways of having a line falsely register as a new line from this function, hopefully that will be pretty rare. 
 def extract_new_lines_in_diff(diff_lines):
@@ -27,6 +30,9 @@ def extract_new_lines_in_diff(diff_lines):
                 #add the new line
                 new_lines.append(line[1:])
     return new_lines
+
+def perform_checks(lines):
+    return True
 
 #process diff data intercepted by a git hook
 if __name__ == "__main__":
