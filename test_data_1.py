@@ -6,7 +6,7 @@ import sys
 
 # Initialize an empty list to store tasks
 todo_list = []
-
+#foo foo goofoo fo foo
 def show_menu():
     """Display the main menu options."""
     print("\n--- Todo List Manager ---")
@@ -23,6 +23,8 @@ def view_tasks():
         print("\nYour Tasks:")
         for i, task in enumerate(todo_list, 1):
             print(f"{i}. {task}")
+
+#foobar
 
 def add_task():
     """Add a new task to the todo list."""
