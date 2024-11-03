@@ -31,7 +31,7 @@ class CommandHandler():
             extra_arguments = sys.argv[2:]
             if main_argument == "help":
                 self.sourcescan_help()
-            elif main_argument == "scan-init":
+            elif main_argument == "init":
                 self.scan_init()
             elif main_argument == "scan-file":
                 self.scan_file(extra_arguments)
@@ -78,15 +78,14 @@ class CommandHandler():
             #TODO
         user_input = input("Do you want to add SourceScan configuration files to your .gitignore file (Recommended) Type y to confirm : ")
         if user_input=="y":
-            pass
-            #TODO
+            self.update_gitignore()
         user_input = input("Do you want to automatically run SourceScan before git commits? Type y to confirm : ")
         if user_input=="y":
             pass
             #TODO
         print("Do you want to add any other types of files to the list of files SourceScan will not process, type exit to exit")
         while True:
-            user_input = input("type file extension (after the dot) here")
+            user_input = input("type file extension (after the dot) here : ")
             if user_input=="exit":
                 break
             else:
@@ -131,6 +130,7 @@ class CommandHandler():
             return
         print("scanning ",filename)
         for line_number,line in enumerate(file):
+            line = line.rstrip()
             API_key_detected,dodgy_pattern = API_detector.detect_in_line(line)
             if API_key_detected:
                 if not clean: #if we are "scanning" clean, we don't care if a pattern has been marked false positive before
@@ -149,6 +149,16 @@ class CommandHandler():
         files = []
         #TODO, later, actually get the filenames
         return files
+
+    #update a gitignore to ignore sourcescans configuration files
+    def update_gitignore(self): #yes if you keep reinitalizing the file, these same patterns will keep being added to the gitignore which is kind of silly, but should be fairly harmless
+        file = open('.gitignore','a')
+        file.write("sourcescan_patterns.pkl\n")
+        file.write(".sourcescanconfig\n")
+
+            
+
+
 
 if __name__ == "__main__":
     command_handler = CommandHandler()
