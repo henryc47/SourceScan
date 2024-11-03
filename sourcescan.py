@@ -1,5 +1,7 @@
 import sys
+import os
 import pickle #for storing objects
+import scan_for_API_keys
 
 def command_handler(arguments):
     if len(arguments)<=1:
@@ -41,8 +43,31 @@ def sourcescan_help():
     print("view-marked-false-positives - view all the strings which have been marked as false positives")
     sys.exit(0)
 
+#setup the configuration files for SourceScan
 def scan_init():
-    pass
+    print("Welcome to the SourceScan Initialization Wizard")
+    if os.path.exists(".sourcescanconfig"):
+        user_input = input("You have already initialized SourceScan in this directory, Type y to reinitalize: ")
+        if not user_input=="y":
+            print("SourceScan initialization cancelled")
+            return
+    user_input = input("Do you want to prevent SourceScan from analyzing it's own configuration files? (Recommended) Type y to confirm : ")
+    if user_input=="y":
+        pass
+        #TODO
+    user_input = input("Do you want to add SourceScan configuration files to your .gitignore file (Recommended) Type y to confirm : ")
+    if user_input=="y":
+        pass
+        #TODO
+    print("Do you want to add any other types of files to the list of files SourceScan will not process, type exit to exit")
+    while True:
+        user_input = input("type file extension (after the dot) here")
+        if user_input=="exit":
+            break
+        else:
+            #TODO 
+            pass
+    print("Initialization complete")
 
 #scan each of the provided filenames
 def scan_file(extra_arguments,clean=False):
@@ -77,8 +102,9 @@ def scan_single_file(filename,clean):
     except:
         print(filename," could not be found in the current directory",file=sys.stderr)
         return
-    #TODO, actually scan the file
     print("scanning ",filename)
+    
+
 
 
 #find and return a list of filepaths in the directory
