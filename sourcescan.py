@@ -97,10 +97,11 @@ class CommandHandler():
         user_input = input("Do you want to add SourceScan configuration files to your .gitignore file (Recommended) Type y to confirm : ")
         if user_input=="y":
             self.update_gitignore()
-        user_input = input("Do you want to automatically run SourceScan before git commits? Type y to confirm : ")
-        if user_input=="y":
-            pass
-            #TODO
+        #TODO
+        #user_input = input("Do you want to automatically run SourceScan before git commits? Type y to confirm : ")
+        #if user_input=="y":
+        #    pass
+        #    #TODO
         print("Initialization complete")
 
     #scan each of the provided filenames
@@ -139,26 +140,35 @@ class CommandHandler():
             print(filename," could not be found in the current directory",file=sys.stderr)
             return
         print("scanning ",filename)
-        for line_number,line in enumerate(file):
-            line = line.rstrip()
-            for scan_type in self.line_scan_types:
-                detected,dodgy_pattern = scan_type.detect_in_line(line)
-                if detected:
-                    if not clean: #if we are "scanning" clean, we don't care if a pattern has been marked false positive before
-                        if dodgy_pattern in self.known_patterns: #no need to detect a pattern multiple times
-                            continue
-                    print(scan_type.detection_message,dodgy_pattern," Detected on line ",line_number,"-> ",line)
-                    user_input = input("Type y to confirm that this is intentional and you are happy with this being in your source code: ")
-                    if (user_input=="y"): #if it is intentional, store it in list of known false positive patterns
-                        self.known_patterns.add(dodgy_pattern)
-                else:
-                    continue
+        try:
+            for line_number,line in enumerate(file):
+                line = line.rstrip()
+                for scan_type in self.line_scan_types:
+                    detected = scan_type.detect_in_line(line)
+                    if detected:
+                        if not clean: #if we are "scanning" clean, we don't care if a pattern has been marked false positive before
+                            if line in self.known_patterns: #no need to detect a pattern multiple times
+                                continue
+                        print(scan_type.detection_message," Detected on line ",line_number,"-> ",line)
+                        user_input = input("Type y to confirm that this is intentional and you are happy with this being in your source code: ")
+                        if (user_input=="y"): #if it is intentional, store it in list of known false positive patterns
+                            self.known_patterns.add(line)
+                    else:
+                        continue
+        except:
+            print("file is not a valid format for parsing")
 
 
     #find and return a list of filepaths in the directory
     def get_files_in_directory(self):
         files = []
-        #TODO, later, actually get the filenames
+        for path,disregard,filenames in os.walk(os.getcwd()):#search through all the files in the current directory
+            for filename in filenames:
+                file_components = filename.split(".")
+                file_extension = file_components[-1]
+                if file_extension not in self.blocked_files:
+                    files.append(filename)
+
         return files
 
     #update a gitignore to ignore sourcescans configuration files
