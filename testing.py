@@ -1,6 +1,6 @@
 
 #plus some random API keys
-my_github_key = "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"
+my_github_key = "11ANI3Y3Q0aiC2p8zedAKE_PZiytUY7YIFKWXXVS0P56VUWcRg1RYnDt3ac4Wn1suzXJRKPDYUM8yWk7Ch"
 
 
 #some code from my honours thesis
@@ -22,8 +22,8 @@ class Agent:
         self.number_passengers = number_passengers #number of passengers represented by this agent
         #self.found_path = self.pathfind()
         self.done = False #has the agent reached their destination yet
-        self.my_2nd_github_key = "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"
-        
+        self.my_2nd_github_key = "11ANI3Y3Q0prLWoDyG5mw5_7PIwB1dVgKmiwcBMChmMSSx9ZzrkCsgOBZgeo17ZhZhFPJ2WDOG3tm04wnJ"
+
         
 
     #calculate a path from the start to the destination
